@@ -1,0 +1,6 @@
+{
+  "name": "ONE PIECE ASCII Panel",
+  "description": "A web application that displays the words 'ONE PIECE' on a 7x52 digital panel, recreating a classic dot-matrix display aesthetic with a modern look.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}

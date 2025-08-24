@@ -1,16 +1,15 @@
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import CharacterGrid from './components/CharacterGrid';
 import { GRID_ROWS, GRID_COLS, LETTER_MAP } from './constants';
 import { LetterPattern } from './types';
 
-const generateGridData = (): LetterPattern => {
+const generateGridData = (text: string): LetterPattern => {
   const grid: LetterPattern = Array(GRID_ROWS).fill(null).map(() => Array(GRID_COLS).fill(false));
-  const text = "ONE PIECE";
   let currentColumn = 1; // Start with 1-column padding for centering
 
   for (let i = 0; i < text.length; i++) {
-    const char = text[i];
+    const char = text[i].toUpperCase();
 
     if (char === ' ') {
       currentColumn += 2; // Create a wider gap between words
@@ -45,7 +44,8 @@ const generateGridData = (): LetterPattern => {
 
 
 const App: React.FC = () => {
-  const onePieceGrid = useMemo(() => generateGridData(), []);
+  const [text, setText] = useState('ONE PIECE');
+  const onePieceGrid = useMemo(() => generateGridData(text), [text]);
 
   return (
     <div className="min-h-screen w-full bg-gray-900 text-white flex flex-col items-center justify-center p-4 font-sans">
@@ -54,6 +54,14 @@ const App: React.FC = () => {
         <p className="text-gray-400 mt-2">Digital Panel Display - 7x52</p>
       </div>
       
+      <input
+        type="text"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        className="bg-gray-800 text-white border-2 border-gray-700 rounded-lg p-2 mb-8 w-80 text-center"
+        placeholder="Enter text to display"
+      />
+
       <CharacterGrid gridData={onePieceGrid} />
       
       <footer className="mt-12 text-center text-gray-500 text-sm">
